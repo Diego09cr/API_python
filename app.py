@@ -27,6 +27,16 @@ def get_id(id):
         return jsonify(usuario)
     else:
         return jsonify({'Erro': 'Usuário não encontrado'}), 404
+    
+@app.route('/usuario/<int:id>', methods=['PUT'])
+def attusu(id):
+    usuario = usuarios.get(id)
+    if not usuario:
+        return jsonify({'erro': 'Usuário não encontrado'}), 404
+    dados = request.get_json()
+    usuario['nome'] = dados.get('nome', usuario['nome'])
+    usuario['email'] = dados.get('email', usuario['email'])
+    return jsonify(usuario)
 
 if __name__ == '__main__':
     app.run(debug=True)
