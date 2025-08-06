@@ -38,5 +38,13 @@ def attusu(id):
     usuario['email'] = dados.get('email', usuario['email'])
     return jsonify(usuario)
 
+@app.route('/usuario/<int:id>', methods=['DELETE'])
+def deleteusu(id):
+    if id in usuarios:
+        del usuarios[id]
+        return jsonify({'mensagem': 'Usuário deletado com sucesso'})
+    else:
+        return jsonify({'erro': 'Usuário não encontrado'})
+
 if __name__ == '__main__':
     app.run(debug=True)
